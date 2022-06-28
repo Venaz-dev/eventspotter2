@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('title', 'Profile')
 @section('content')
-    <div class="container-fluid">
+    <div class="container-fluid" id="profile-page">
         <div class="d-flex">
             @include('front.partials.sidebar')
 
@@ -10,8 +10,8 @@
                 <div class="live_feed_section d-flex flex-column pb-2">
                     <div class="d-flex pb-3 e_live_feed_container border-bottom">
                         <span class="order-2">Your profile</span>
-                        <img class="p-1 back_arrow order-1" id="account_options"
-                            src="{{ asset('assets/newimages/sidebaricons/chevronicon.svg') }}" alt="arrow">
+                        {{-- <img class="p-1 back_arrow order-1" id="account_options"
+                            src="{{ asset('assets/newimages/sidebaricons/chevronicon.svg') }}" alt="arrow"> --}}
                     </div>
                     <div class="row mt-5 px-3">
                         <div class="col-12 d-flex py-3 profile_card">
@@ -23,29 +23,29 @@
                                 <span class="user_handle">@ {{ $user->name }}</span>
                             </div>
                             <div class="d-flex flex-column">
-                                <div class="d-flex">
+                                <div class="d-flex numbers">
                                     <div class="d-flex flex-column pr-5 tag_border_right">
                                         <span class="tag_count_number">{{ $following }}</span>
                                         <span class="tag_count_label">Following</span>
                                     </div>
                                     <div class="d-flex flex-column pl-5 pr-4 tag_border_right">
                                         <span class="tag_count_number">{{ $followers }}</span>
-                                        <span class="tag_count_label">Following</span>
+                                        <span class="tag_count_label">Followers</span>
                                     </div>
                                     <div class="d-flex flex-column pl-5">
                                         <span class="tag_count_number">{{ $totalEvents ?? '0' }}</span>
                                         <span class="tag_count_label">Events</span>
                                     </div>
                                 </div>
-                                <div class="d-flex align-items-center mt-4">
-                                    <a href="#" class="d-flex align-items-center mr-5">
+                                <div class="d-flex align-items-center mt-4 actions">
+                                    <a href="edit-profile" class="d-flex align-items-center mr-5">
                                         <div class="edit_profile_icon_container mr-2">
                                             <img class="p-1 edit_profile_icon" id=""
                                                 src="{{ asset('assets/newimages/editicon.svg') }}" alt="editicon">
                                         </div>
                                         <span class="edit_profile_text">Edit profile</span>
                                     </a>
-                                    <a href="#" class="d-flex align-items-center">
+                                    <a href="settings" class="d-flex align-items-center">
                                         <div class="edit_profile_icon_container mr-2">
                                             <img class="p-1 edit_profile_icon" id=""
                                                 src="{{ asset('assets/newimages/settingsicon.svg') }}" alt="settingsicon">

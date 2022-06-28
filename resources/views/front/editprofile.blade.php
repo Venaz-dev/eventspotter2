@@ -6,11 +6,14 @@
         @include('front.partials.sidebar')
         <div class="custom_main_contents pt-5">
             <div class="live_feed_section d-flex flex-column pb-2">
-                <div class="d-flex pb-3 e_live_feed_container border-bottom">
-                    <span class="order-2">Edit profile</span>
-                    <img class="p-1 back_arrow order-1" id="account_options"
+                <a href="profile">
+
+                    <div class="d-flex pb-3 e_live_feed_container border-bottom">
+                        <span class="order-2">Edit profile</span>
+                        <img class="p-1 back_arrow order-1" id="account_options"
                         src="{{asset('assets/newimages/sidebaricons/chevronicon.svg')}}" alt="arrow">
-                </div>
+                    </div>
+                </a>
                 <div class="row mt-5 pb-4 px-3">
                     <div class="col-12 d-flex justify-content-center">
                         <div class="showprofilephoto">

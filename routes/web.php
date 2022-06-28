@@ -52,6 +52,7 @@ Route::view('left', 'front.left');
 Route::view('right', 'front.right');
 Route::view('header', 'front.header');
 Route::view('community', 'front.community')->name('community');
+Route::view('settings', 'front.settings')->name('settings');
 
 Route::get('profile', [ProfileController::class, 'create'])->middleware('auth');
 Route::get('profile/{id}', [ProfileController::class, 'userProfile']);

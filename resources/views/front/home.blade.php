@@ -76,9 +76,10 @@
                                             @endif
                                         </a>
                                         <div class="d-flex flex-column event_details_container mt-3">
+                                            <a href="{{ url('eventDetails/' . $event['events']->id) }}">
                                             <span class="title pb-0 px-0">{{ $event['events']->event_name }}</span>
                                             <span
-                                                class="description mt-2 pt-0">{{ substr($event['events']->event_description, 0, 100) }}...</span>
+                                                class="description mt-2 pt-0">{{ substr($event['events']->event_description, 0, 100) }}...</span></a>
 
                                             <div
                                                 class="event_reactions_container mt-4 d-flex justify-content-between align-items-center">

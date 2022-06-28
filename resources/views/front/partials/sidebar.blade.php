@@ -2,6 +2,10 @@
     <div class="burger-menu" onclick="showSidebar()">
         <img src="{{asset('/assets/newimages/sidebaricons/burger_menu.svg')}}" alt="">
     </div>
+    <a href="/">
+
+        <img class="img-fluid mini-logo" src="{{asset('assets/newimages/logo.svg')}}" alt="logo">
+    </a>
 </div>
 <div class="custom_sidebar pt-5 hide-sidebar">
     <div class="close-icon" onclick="showSidebar()">
@@ -22,14 +26,14 @@
                     <span @class(['ml-2','font-weight-bold'=> false])>Home</span>
                 </a>
             </li>
-            <li class="w-100">
+            {{-- <li class="w-100">
                 <a href="#2" class="d-flex py-2 mb-2 justify-content-center align-items-center">
                     <div class="sidebar_icon">
                         <img src="{{asset('/assets/newimages/sidebaricons/events.svg')}}" alt="img">
                     </div>
                     <span @class(['ml-2','font-weight-bold'=> false])>Events</span>
                 </a>
-            </li>
+            </li> --}}
             <li class="w-100">
                 <a href="#2" class="d-flex pl-4 py-2 mb-2 justify-content-center align-items-center">
                     <div class="sidebar_icon">
