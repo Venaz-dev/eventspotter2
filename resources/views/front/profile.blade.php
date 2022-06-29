@@ -24,13 +24,25 @@
                             </div>
                             <div class="d-flex flex-column">
                                 <div class="d-flex numbers">
-                                    <div class="d-flex flex-column pr-5 tag_border_right">
-                                        <span class="tag_count_number">{{ $following }}</span>
-                                        <span class="tag_count_label">Following</span>
+                                   
+                                    <div class="d-flex flex-column pl-5 pr-4 tag_border_right">
+                                                <a href="profile/friends"> 
+                                                    <div class="d-flex justify-content-center">
+                                                        <span class="tag_count_number">{{ $following }}</span>
+                                                    </div>
+                                                <span class="tag_count_label">Following</span>
+                                            </a>
                                     </div>
                                     <div class="d-flex flex-column pl-5 pr-4 tag_border_right">
-                                        <span class="tag_count_number">{{ $followers }}</span>
-                                        <span class="tag_count_label">Followers</span>
+
+                                                <a href="profile/friends"> 
+                                                    <div class="d-flex justify-content-center">
+                                                        <span class="tag_count_number">{{ $followers }}</span>
+                                                    </div>
+                                                <span class="tag_count_label">Followers</span>
+                                                
+                                            </a>
+
                                     </div>
                                     <div class="d-flex flex-column pl-5">
                                         <span class="tag_count_number">{{ $totalEvents ?? '0' }}</span>
@@ -57,8 +69,8 @@
                         </div>
                         <div class="mt-4 tab_container col-12 px-0">
                             <ul class="tab_header_container d-flex align-items-center justify-content-center col-12 px-2">
-                                <li data-item='upcomingTabContainer' class="col-4 text-center active_tab">Upcoming</li>
-                                <li data-item='pastEventsTabContainer' class="col-4 text-center">Past events</li>
+                                <li data-item='upcomingTabContainer' class="col-4 text-center ">Upcoming</li>
+                                <li data-item='pastEventsTabContainer' class="col-4 text-center active_tab">Past events</li>
                                 <li data-item='draftTabContainer' class="col-4 text-center ">Draft</li>
                             </ul>
                             <div id="upcomingTabContainer" class="tab_items ">

@@ -1,110 +1,141 @@
 @extends('layouts.main')
-@section('title', 'Notifications')
+@section('title', 'Profile')
 @section('content')
-    <div class="container-fluid">
-        <div class="d-flex">
-            @include('front.partials.sidebar')
-            <div class="custom_main_contents pt-5">
-                <div class="live_feed_section d-flex flex-column pb-2">
-                    <div class="d-flex pb-3 e_live_feed_container border-bottom">
-                        <span class="order-2">Notifications</span>
-                        {{-- <img class="back_arrow order-1" id="account_options"
-                            src="{{ asset('assets/newimages/sidebaricons/chevronicon.svg') }}" alt="arrow"> --}}
-                    </div>
-                    @if (count($notifications) > 0)
-                        @foreach ($notifications as $item)
-                            @php
-                                $routeURL = $item->route_name ?? 'follower';
-                                $url = $item->id . '/' . $item->route_name;
-                            @endphp
-                            <div class="row">
-                                <div class="col-12 d-flex notification_item_container mt-4">
-                                    @if ($item->user->profilePicture != null)
-                                        <img src="{{ $item->user->profilePicture->image }}" class="profilePhoto_thumbnail">
-                                    @else
-                                        <img src="{{ asset('assets/newimages/thumbnail.svg') }}"
-                                            class="profilePhoto_thumbnail" alt="">
-                                    @endif
-                                    <div class="d-flex flex-column ml-2">
-                                        <span class="title_message">{{ $item->message }}</span>
-                                        <span class="time_ago">{{ $item->created_at->diffForHumans() }}</span>
-                                    </div>
-                                </div>
-                                <div class="col-12 d-flex notification_item_container mt-4">
-                                    <img src="{{ asset('assets/newimages/thumbnail.svg') }}"
-                                        class="profilePhoto_thumbnail" alt="">
-                                    <div class="d-flex flex-column ml-2">
-                                        <span class="title_message">You have a follow request from John Dereek</span>
-                                        <span class="time_ago">2 hours ago</span>
-                                    </div>
-                                </div>
-                                <div class="col-12 d-flex notification_item_container mt-4">
-                                    <img src="{{ asset('assets/newimages/thumbnail.svg') }}"
-                                        class="profilePhoto_thumbnail" alt="">
-                                    <div class="d-flex flex-column ml-2">
-                                        <span class="title_message">You have a follow request from John Dereek</span>
-                                        <span class="time_ago">2 hours ago</span>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-                    @endif
-                </div>
-            </div>
+<div class="container-fluid">
+    <div class="d-flex">
+        @include('front.partials.sidebar')
 
 
-            {{-- Right bar --}}
-            {{-- @include('newfront.partials.rightbar') --}}
-            <div class="custom_rightbar pt-5 pl-4 pb-5">
-                <form action="#" method="post">
-                    <div class="search_container">
-                        <input type="text" class="search_friends" placeholder="Search for friends" name="" id="">
-                        <img class="searchbar_icon" src="{{ asset('assets/newimages/rightbaricons/searchicon.svg') }}"
-                            alt="searchicon">
-                    </div>
-                </form>
-                <div class="sponsored_ads mt-4 p-3">
-                    <span class="">Sponsored ads</span>
+        <div class="custom_main_contents pt-5">
+            <div class="live_feed_section d-flex flex-column pb-2">
+                <a href="/profile">
+                <div class="d-flex pb-3 e_live_feed_container border-bottom">
+                    <span class="order-2">Your friends</span>
+                    <img class="p-1 back_arrow order-1" id="account_options"
+                        src="{{asset('assets/newimages/sidebaricons/chevronicon.svg')}}" alt="arrow">
                 </div>
-                <div class="show_requests mt-4 p-3">
-                    <div class="d-flex justify-content-end mb-4"><a href="{{ url('/notifications') }}"
-                            class="primary_color seeAllRequests">See
-                            all</a>
-                    </div>
-                    @foreach (\App\Models\Notifications::where('user_id', Auth::id())->take(5)->orderBy('created_at', 'DESC')->get()
-        as $noti)
-                        <a href="{{ url($noti->route_name) }}">
-                            <div class="friend_list_container d-flex align-items-center mb-3">
-                                @if ($noti->user->profilePicture != null)
-                                    <img class="profilePhoto_thumbnail" src="{{ $noti->user->profilePicture->image }}"
-                                        alt="thumbnail">
-                                @else
-                                    <img class="profilePhoto_thumbnail"
-                                        src="{{ asset('assets/newimages/thumbnail.svg') }}" alt="thumbnail">
-                                @endif
-                                <span class="description ml-2">{{ $noti->message }}</span>
-                                <span class="time_ago">{{ $noti->created_at->diffForHumans() }}</span>
+                </a>
+                <div class="row mt-5 pb-4 px-3">
+                    <div class="mt-4 tab_container col-12 px-0">
+                        <ul class="tab_header_container d-flex align-items-center justify-content-center col-12 px-2">
+                            <li data-item='followingContainer' class="col-6 text-center active_tab">Following</li>
+                            <li data-item='followersContainer' class="col-6 text-center ">Followers</li>
+                        </ul>
+                        <div id="followingContainer" class="tab_items d-block">
+                            <div class="d-flex align-items-center justify-content-between mb-3">
+                                <div class="d-flex align-items-center">
+                                    <img class="follow_photo" class="img-fluid"
+                                        src="{{asset('assets/newimages/thumbnail.svg')}}" alt="photo">
+                                    <div class="ml-2 d-flex flex-column align-items-start">
+                                        <span class="user_name">Diamond Stephen</span>
+                                        <span class="user_handle">@stephdiamond</span>
+                                    </div>
+                                </div>
+                                <button class="btn follow_btn not_following_user">Follow</button>
                             </div>
-                    @endforeach
-                </div>
-                <div class="d-flex align-items-center flex-wrap">
-                    <a href="{{ url('privacy_policy') }}" class="bottom_links">Privacy Policy</a>
-                    <div class="dot_separator mx-3"></div>
-                    <a href="{{ url('terms_of_service') }}" class="bottom_links">Terms of service</a>
-                    <div class="dot_separator mx-3"></div>
-                    <a href="{{ url('disclamier') }}" class="bottom_links">Disclaimer</a>
-                </div>
-                <div class="mt-2 pb-3 bottom_links_border"><a href="#" class="primary_color">More...</a></div>
-                <div class="footer_notes d-flex align-items-center justify-content-between mt-4">
-                    <span class="">© Event Spotter. 2022</span>
-                    <a href="#" target="_blank" rel="noopener noreferrer">
-                        <img class="getApp" src="{{ asset('assets/newimages/rightbaricons/getapp.svg') }}"
-                            alt="searchicon">
-                    </a>
+                            <div class="d-flex align-items-center justify-content-between mb-3">
+                                <div class="d-flex align-items-center">
+                                    <img class="follow_photo" class="img-fluid" src="{{asset('assets/newimages/thumbnail.svg')}}" alt="photo">
+                                    <div class="ml-2 d-flex flex-column align-items-start">
+                                        <span class="user_name">Diamond Stephen</span>
+                                        <span class="user_handle">@stephdiamond</span>
+                                    </div>
+                                </div>
+                                <button class="btn unfollow_btn px-3">Unfollow</button>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between mb-3">
+                                <div class="d-flex align-items-center">
+                                    <img class="follow_photo" class="img-fluid" src="{{asset('assets/newimages/thumbnail.svg')}}" alt="photo">
+                                    <div class="ml-2 d-flex flex-column align-items-start">
+                                        <span class="user_name">Diamond Stephen</span>
+                                        <span class="user_handle">@stephdiamond</span>
+                                    </div>
+                                </div>
+                                <button class="btn follow_btn not_following_user">Follow</button>
+                            </div>
+                        </div>
+                        <div id="followersContainer" class="tab_items d-none">
+                            <div class="d-flex align-items-center justify-content-between mb-3">
+                                <div class="d-flex align-items-center">
+                                    <img class="follow_photo" class="img-fluid" src="{{asset('assets/newimages/thumbnail.svg')}}" alt="photo">
+                                    <div class="ml-2 d-flex flex-column align-items-start">
+                                        <span class="user_name">Diamond Stephen</span>
+                                        <span class="user_handle">@stephdiamond</span>
+                                    </div>
+                                </div>
+                                <button class="btn follow_btn not_following_user">Follow</button>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between mb-3">
+                                <div class="d-flex align-items-center">
+                                    <img class="follow_photo" class="img-fluid" src="{{asset('assets/newimages/thumbnail.svg')}}" alt="photo">
+                                    <div class="ml-2 d-flex flex-column align-items-start">
+                                        <span class="user_name">Diamond Stephen</span>
+                                        <span class="user_handle">@stephdiamond</span>
+                                    </div>
+                                </div>
+                                <button class="btn unfollow_btn px-3">Unfollow</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+
+
+        {{-- Right bar --}}
+        {{-- @include('newfront.partials.rightbar') --}}
+        <div class="custom_rightbar pt-5 pl-4 pb-5">
+            <form action="#" method="post">
+                <div class="search_container">
+                    <input type="text" class="search_friends" placeholder="Search for friends" name="" id="">
+                    <img class="searchbar_icon" src="{{asset('assets/newimages/rightbaricons/searchicon.svg')}}"
+                        alt="searchicon">
+                </div>
+            </form>
+            <div class="sponsored_ads mt-4 p-3">
+                <span class="">Sponsored ads</span>
+            </div>
+            <div class="show_requests mt-4 p-3">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <span class="rightbar_heading_title">Notifications</span>
+                    <div class="d-flex justify-content-end"><a href="#seeAll" class="primary_color seeAllRequests">See
+                            all</a>
+                    </div>
+                </div>
+                <div class="">
+                    <a class="friend_list_container d-flex align-items-center mb-2">
+                        <img class="profilePhoto_thumbnail" src="{{asset('assets/newimages/thumbnail.svg')}}"
+                            alt="thumbnail">
+                        <span class="description ml-2">You have a follow request
+                            from John Dereek</span>
+                        <span class="time_ago">2 hours ago</span>
+                    </a>
+                    <a class="friend_list_container d-flex align-items-center mb-2">
+                        <img class="profilePhoto_thumbnail" src="{{asset('assets/newimages/thumbnail.svg')}}"
+                            alt="thumbnail">
+                        <span class="description ml-2">You have a follow request
+                            from John Dereek</span>
+                        <span class="time_ago">2 hours ago</span>
+                    </a>
+                </div>
+            </div>
+            <div class="d-flex align-items-center flex-wrap">
+                <a href="#" class="bottom_links">Privacy Policy</a>
+                <div class="dot_separator mx-3"></div>
+                <a href="#" class="bottom_links">Terms of service</a>
+                <div class="dot_separator mx-3"></div>
+                <a href="#" class="bottom_links">Disclaimer</a>
+            </div>
+            <div class="mt-2 pb-3 bottom_links_border"><a href="#" class="primary_color">More...</a></div>
+            <div class="footer_notes d-flex align-items-center justify-content-between mt-4">
+                <span class="">© Event Spotter. 2022</span>
+                <a href="#" target="_blank" rel="noopener noreferrer">
+                    <img class="getApp" src="{{asset('assets/newimages/rightbaricons/getapp.svg')}}" alt="searchicon">
+                </a>
+            </div>
+        </div>
     </div>
+</div>
 @endsection
 
 
@@ -122,8 +153,8 @@
 
 
 @section('script')
-    <script type="text/javascript">
-        var eventConditionsArray = [];
+<script type="text/javascript">
+    var eventConditionsArray = [];
         let is_public = 1;
         var lat, lng;
         var geocoder;
@@ -454,5 +485,5 @@
 
             })
         }
-    </script>
+</script>
 @endsection

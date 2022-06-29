@@ -19,13 +19,19 @@
     z-index: 900;
     border-bottom: 1px solid #dbdbdb;
   }
-  .burger-menu img {
+  .burger-menu img,
+  .noti-icon img {
     width: 35px;
   }
   .burger-menu {
     position: absolute;
     top: 30px;
     left: 5%;
+  }
+  .noti-icon {
+    position: absolute;
+    top: 30px;
+    right: 5%;
   }
   .close-icon {
     display: block;
@@ -46,7 +52,7 @@
     z-index: 1000;
     padding: 5%;
     padding-left: 2%;
-    transition: all 0.5s ease-in-out;
+    transition: all 0.3s ease-in-out;
     border: none;
   }
   .custom_sidebar.pt-5 {
@@ -126,5 +132,33 @@
   }
   #profile-page .tab_container li {
     font-size: 14px;
+  }
+
+  /* #chat page mobile styles */
+  #chat-page .go-back {
+    position: sticky;
+    top: 80px;
+    z-index: 100;
+    background-color: white;
+    padding-top: 10px;
+  }
+  .all-messages {
+    padding-bottom: 200px !important;
+  }
+  .user_chat_message_sender .ml-auto {
+    margin-left: unset !important;
+    align-items: flex-start;
+    width: 100% !important;
+    max-width: unset !important;
+    align-items: flex-end;
+  }
+  .send_message_container {
+    box-sizing: border-box;
+    width: 92% !important;
+    padding-bottom: 25px !important;
+  }
+
+  .order-2 {
+    font-size: 18px !important;
   }
 }
